@@ -92,66 +92,145 @@ class _AddProductPageState extends State<AddProductPage> {
     }
   }
 
-  // AQUÍ ESTABA FALTANDO EL MÉTODO BUILD
+  // Método para construir campos de texto consistentes
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String label,
+    TextInputType? keyboardType,
+    String? Function(String?)? validator,
+    bool enabled = true,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 18.0),
+      child: TextFormField(
+        controller: controller,
+        enabled: enabled,
+        keyboardType: keyboardType,
+        validator: validator,
+        style: const TextStyle(fontSize: 16, color: Colors.white),
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: const TextStyle(fontSize: 16, color: Colors.white70),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 16,
+            horizontal: 15,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.blue),
+          ),
+          filled: true,
+          fillColor: Colors.grey[900]?.withOpacity(0.7),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
           widget.producto == null ? 'Agregar Producto' : 'Editar Producto',
+          style: const TextStyle(fontSize: 22),
         ),
         backgroundColor: const Color(0xFF1C1E22),
       ),
       backgroundColor: const Color(0xFF1C1E22),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
-              TextFormField(
+              // Campo VIN
+              _buildTextField(
                 controller: vinController,
-                decoration: const InputDecoration(labelText: 'VIN'),
+                label: 'VIN',
+                enabled: widget.producto == null,
                 validator:
                     (value) =>
                         value == null || value.isEmpty ? 'Ingrese VIN' : null,
-                enabled: widget.producto == null,
               ),
-              TextFormField(
+
+              // Campo Modelo
+              _buildTextField(
                 controller: modeloController,
-                decoration: const InputDecoration(labelText: 'Modelo'),
+                label: 'Modelo',
                 validator:
                     (value) =>
                         value == null || value.isEmpty
                             ? 'Ingrese modelo'
                             : null,
               ),
-              TextFormField(
-                controller: marcaController,
-                decoration: const InputDecoration(labelText: 'Marca'),
+
+              // Campo Marca
+              _buildTextField(controller: marcaController, label: 'Marca'),
+
+              // Fila para Año y Cantidad
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(
+                      controller: anioController,
+                      label: 'Año',
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: _buildTextField(
+                      controller: cantidadController,
+                      label: 'Cantidad',
+                      keyboardType: TextInputType.number,
+                    ),
+                  ),
+                ],
               ),
-              TextFormField(
-                controller: anioController,
-                decoration: const InputDecoration(labelText: 'Año'),
-                keyboardType: TextInputType.number,
+
+              // Fila para Ubicación y Estado
+              Row(
+                children: [
+                  Expanded(
+                    child: _buildTextField(
+                      controller: ubicacionController,
+                      label: 'Ubicación',
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: _buildTextField(
+                      controller: estadoController,
+                      label: 'Estado',
+                    ),
+                  ),
+                ],
               ),
-              TextFormField(
-                controller: cantidadController,
-                decoration: const InputDecoration(labelText: 'Cantidad'),
-                keyboardType: TextInputType.number,
-              ),
-              TextFormField(
-                controller: ubicacionController,
-                decoration: const InputDecoration(labelText: 'Ubicación'),
-              ),
-              TextFormField(
-                controller: estadoController,
-                decoration: const InputDecoration(labelText: 'Estado'),
-              ),
-              const SizedBox(height: 20),
+
+              const SizedBox(height: 30),
               ElevatedButton(
                 onPressed: _guardarProducto,
-                child: Text(widget.producto == null ? 'Agregar' : 'Guardar'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  textStyle: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                child: Text(
+                  widget.producto == null
+                      ? 'AGREGAR PRODUCTO'
+                      : 'GUARDAR CAMBIOS',
+                ),
               ),
             ],
           ),

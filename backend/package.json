@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test:integration": "NODE_ENV=test mocha test/integration/**/*.test.js",
+    "test:all": "npm run test:unit && npm run test:integration"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +17,11 @@
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
-    "pg": "^8.16.0"
+    "pg": "^8.16.0",
+    "mocha": "^10.0.0",
+    "chai": "^4.3.0",
+    "supertest": "^6.3.0",
+    "sinon": "^15.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
