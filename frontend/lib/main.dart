@@ -16,6 +16,34 @@ class MyApp extends StatelessWidget {
       title: 'AXEMOBILE',
       home: const HomePage(),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.grey[900],
+        scaffoldBackgroundColor: Colors.black,
+        textTheme: const TextTheme(
+          displayLarge: TextStyle(
+            fontSize: 36,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          titleLarge: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 16,
+            color: Colors.white70,
+            height: 1.5,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.grey[800],
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -26,14 +54,14 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1C1E22),
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xFF1C1E22),
+        backgroundColor: Colors.black87,
         elevation: 0,
         title: Row(
           children: [
-            Image.asset('assets/images/Auto_rep.png', height: 40),
-            const SizedBox(width: 20),
+            const Icon(Icons.directions_car, color: Colors.white),
+            const SizedBox(width: 10),
             const Text(
               'AXEMOBILE',
               style: TextStyle(
@@ -50,7 +78,7 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: const Text(
-                'Buscar',
+                'BUSCAR',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -58,7 +86,7 @@ class HomePage extends StatelessWidget {
             TextButton(
               onPressed: () {},
               child: const Text(
-                'Pedidos',
+                'PEDIDOS',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -71,18 +99,47 @@ class HomePage extends StatelessWidget {
                 );
               },
               child: const Text(
-                'Inventario',
+                'INVENTARIO',
                 style: TextStyle(color: Colors.white),
               ),
             ),
           ],
         ),
       ),
-      body: const Center(
-        child: Text(
-          'Bienvenido a AXEMOBILE',
-          style: TextStyle(color: Colors.white, fontSize: 18),
-        ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            'assets/images/fondo.jpg', // Ruta corregida
+            fit: BoxFit.cover,
+          ),
+          Container(color: Colors.black.withOpacity(0.6)),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'AUTOMOTIVE\nASSEMBLY',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 38,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1.1,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40),
+                  child: Text(
+                    'Bienvenido a AXEMOBILE',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -164,7 +221,6 @@ class EmptyPage extends StatelessWidget {
   }
 }
 
-// Pantalla BuscarPage
 class BuscarPage extends StatefulWidget {
   const BuscarPage({super.key});
 
@@ -187,9 +243,7 @@ class _BuscarPageState extends State<BuscarPage> {
 
   Future<void> cargarPiezas() async {
     try {
-      final piezas =
-          await apiService
-              .fetchPiezas(); // debes tener esto en tu api-services.dart
+      final piezas = await apiService.fetchPiezas();
       setState(() {
         todasLasPiezas = piezas;
         piezasFiltradas = piezas;
