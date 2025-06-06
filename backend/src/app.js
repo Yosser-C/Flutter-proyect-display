@@ -5,7 +5,21 @@ import piezasRouter from "./routes/piezas.routes.js"; //
 
 const app = express();
 
-app.use(cors());
+// ✅ CORS seguro: solo permite solicitudes desde orígenes específicos
+const allowedOrigins = ["http://localhost:5173", "https://tu-dominio.com"]; // ← Cambia esto según tus dominios permitidos
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Acceso bloqueado por CORS"));
+    }
+  },
+  credentials: true, // Solo si usas cookies o cabeceras de autenticación
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/products", productsRouter);
