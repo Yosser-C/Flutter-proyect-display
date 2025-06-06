@@ -5,6 +5,9 @@ import piezasRouter from "./routes/piezas.routes.js"; //
 
 const app = express();
 
+// ✅ Desactivar cabecera 'X-Powered-By' que revela la versión de Express
+app.disable("x-powered-by");
+
 // ✅ CORS seguro: solo permite solicitudes desde orígenes específicos
 const allowedOrigins = ["http://localhost:5173", "https://tu-dominio.com"]; // ← Cambia esto según tus dominios permitidos
 
