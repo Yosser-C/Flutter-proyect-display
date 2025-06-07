@@ -1,0 +1,29 @@
+# Archivos específicos
+*.pdf
+*.psd
+*.zip
+
+# Directorios de build
+**/build/
+**/.dart_tool/
+**/.pub-cache/
+
+# Plataformas no usadas
+**/android/
+**/ios/
+**/linux/
+**/macos/
+**/windows/
+
+# Configuraciones de IDE
+**/.vscode/
+**/.idea/
+**/*.iml
+
+# Control de versiones
+**/.git/
+**/.github/
+
+# Logs y entornos
+**/*.log
+**/.env*
