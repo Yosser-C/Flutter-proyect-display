@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'productos.dart';
 
 class ApiService {
-  final String baseUrl = 'http://192.168.112.1:3001/api/products';
+  final String baseUrl =
+      'https://automativecompany-backend.onrender.com/api/products';
 
   Future<List<Inventario>> fetchProductos() async {
     final response = await http.get(Uri.parse(baseUrl));

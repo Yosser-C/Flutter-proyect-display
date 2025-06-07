@@ -19,7 +19,9 @@ class InventarioController extends StateNotifier<AsyncValue<List<Inventario>>> {
   Future<void> loadInventario() async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.112.1:3001/api/products'),
+        Uri.parse(
+          'https://automativecompany-backend.onrender.com/api/products',
+        ),
       );
       if (response.statusCode == 200) {
         final List<dynamic> data = json.decode(response.body);
