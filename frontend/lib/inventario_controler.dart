@@ -34,7 +34,8 @@ class InventarioController extends StateNotifier<AsyncValue<List<Inventario>>> {
   }
 
   Future<void> deleteProducto(String vin) async {
-    final url = 'http://192.168.1.9:3001/api/products/$vin';
+    final url =
+        'https://automativecompany-backend.onrender.com/api/products/$vin';
     final response = await http.delete(Uri.parse(url));
     if (response.statusCode == 204 || response.statusCode == 200) {
       await loadInventario();
@@ -45,7 +46,7 @@ class InventarioController extends StateNotifier<AsyncValue<List<Inventario>>> {
 
   Future<void> addProducto(Inventario nuevo) async {
     final response = await http.post(
-      Uri.parse('http://192.168.1.9:3001/api/products'),
+      Uri.parse('https://automativecompany-backend.onrender.com/api/products'),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(nuevo.toJson()),
     );
@@ -58,7 +59,9 @@ class InventarioController extends StateNotifier<AsyncValue<List<Inventario>>> {
 
   Future<void> editProducto(String vin, Inventario actualizado) async {
     final response = await http.patch(
-      Uri.parse('http://192.168.1.9:3001/api/products/$vin'),
+      Uri.parse(
+        'https://automativecompany-backend.onrender.com/api/products/$vin',
+      ),
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode(actualizado.toJson()),
     );

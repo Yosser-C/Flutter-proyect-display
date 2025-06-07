@@ -44,7 +44,7 @@ class ApiService {
 
   Future<List<Inventario>> fetchPiezas() async {
     final response = await http.get(
-      Uri.parse('http://192.168.1.9:3001/api/piezas'),
+      Uri.parse('https://automativecompany-backend.onrender.com/api/piezas'),
     );
 
     if (response.statusCode == 200) {
