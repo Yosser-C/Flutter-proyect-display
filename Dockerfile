@@ -1,14 +1,7 @@
 # ----------------------------
 # ETAPA 1: Desarrollo
 # ----------------------------
-FROM instrumentisto/flutter:3.19.5 AS development
-
-# Instala Chromium sin cambiar de usuario
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        chromium \
-        xvfb \
-    && rm -rf /var/lib/apt/lists/*
+FROM instrumentisto/flutter:latest AS development
 
 # Configura el workspace (usando usuario existente)
 WORKDIR /app
@@ -23,7 +16,7 @@ COPY ./frontend/ .
 # ----------------------------
 # ETAPA 2: Build de producción
 # ----------------------------
-RUN flutter build web --release --web-renderer html
+RUN flutter build web
 
 # ----------------------------
 # ETAPA 3: Servidor de producción
