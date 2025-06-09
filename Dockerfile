@@ -24,4 +24,4 @@ CMD ["nginx", "-g", "pid /tmp/nginx.pid; daemon off;"]
 # ✅ Ejecutar como usuario seguro
 USER nginx
 
-EXPOSE 80
+EXPOSE 8000
