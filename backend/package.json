@@ -7,23 +7,27 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "test:integration": "NODE_ENV=test mocha test/integration/**/*.test.js",
-    "test:all": "npm run test:unit && npm run test:integration"
+    "test": "cross-env NODE_ENV=test mocha --require @babel/register \"test/**/*.test.js\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chai": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
-    "mocha": "^10.0.0",
-    "pg": "^8.16.0",
-    "sinon": "^15.0.0",
-    "supertest": "^6.3.0"
+    "pg": "^8.16.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/register": "^7.23.7",
+    "chai": "^5.2.0",
+    "chai-http": "^5.1.2",
+    "cross-env": "^7.0.3",
+    "mocha": "^11.6.0",
+    "nodemon": "^3.1.10",
+    "sinon": "^20.0.0",
+    "supertest": "^7.1.1"
   }
 }
