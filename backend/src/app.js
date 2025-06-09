@@ -9,7 +9,10 @@ const app = express();
 app.disable("x-powered-by");
 
 // ✅ CORS seguro: solo permite solicitudes desde orígenes específicos
-const allowedOrigins = ["http://localhost:5173", "https://tu-dominio.com"]; // ← Cambia esto según tus dominios permitidos
+const allowedOrigins = [
+  "http://localhost:5432",
+  "https://automativecompany-1054.onrender.com",
+]; // ← Cambia esto según tus dominios permitidos
 
 const corsOptions = {
   origin: function (origin, callback) {
