@@ -14,14 +14,26 @@ RUN flutter build web
 # ----------------------------
 FROM nginx:alpine
 
-# Copiar archivos
+# 1. Eliminar configuraciones por defecto que pueden causar conflictos
+RUN rm /etc/nginx/conf.d/default.conf
+
+# 2. Copiar archivos estáticos de Flutter
 COPY --from=development /app/build/web /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# ✅ Cambiar ruta del PID (evita permisos denegados)
-CMD ["nginx", "-g", "pid /tmp/nginx.pid; daemon off;"]
+# 3. Copiar nuestra configuración personalizada (ruta principal)
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# ✅ Ejecutar como usuario seguro
+# 4. Asegurar permisos para /tmp (crucial para Render)
+RUN chown -R nginx:nginx /tmp && \
+    chmod -R 775 /tmp && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/run
+
+# 5. Comando simplificado (sin definiciones duplicadas)
+CMD ["nginx", "-g", "daemon off;"]
+
+# 6. Usar usuario no-root (requerido por Render)
 USER nginx
 
-EXPOSE 8000
+# 7. Exponer el puerto correcto (8080 para Render)
+EXPOSE 8080
