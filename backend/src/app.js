@@ -22,7 +22,7 @@ const corsOptions = {
   credentials: true, // Solo si usas cookies o cabeceras de autenticación
 };
 
-app.use(cors(corsOptions));
+app.use(cors("*"));
 app.use(express.json());
 
 app.use("/api/products", productsRouter);
